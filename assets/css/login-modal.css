@@ -1,0 +1,421 @@
+/* ===========================
+   LOGIN MODAL STYLES
+   login-modal.css
+   =========================== */
+
+/* Overlay */
+.login-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 9000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.login-modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Modal Wrapper */
+.login-modal-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 9001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    pointer-events: none;
+}
+
+/* Modal Box */
+.login-modal-box {
+    max-width: 480px;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.97);
+    border-radius: 24px;
+    border: 1.5px solid rgba(251, 191, 36, 0.5);
+    overflow: hidden;
+    box-shadow:
+        0 0 80px rgba(251, 191, 36, 0.25),
+        0 30px 60px rgba(0, 0, 0, 0.9),
+        inset 0 1px 0 rgba(251, 191, 36, 0.1);
+    transform: translateY(24px) scale(0.96);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+    pointer-events: none;
+}
+
+.login-modal-box.active {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Close Button */
+.login-modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(251, 191, 36, 0.3);
+    background: rgba(251, 191, 36, 0.08);
+    color: #fbbf24;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+    line-height: 1;
+}
+
+.login-modal-close:hover {
+    background: rgba(251, 191, 36, 0.2);
+    border-color: #fbbf24;
+    transform: rotate(90deg);
+}
+
+/* Modal Header */
+.lm-header {
+    padding: 2rem 2.5rem 1.25rem;
+    border-bottom: 1px solid rgba(251, 191, 36, 0.15);
+    text-align: center;
+    position: relative;
+}
+
+.lm-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.lm-logo-img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 12px rgba(251, 191, 36, 0.5));
+    animation: lmLogoFloat 3s ease-in-out infinite;
+}
+
+@keyframes lmLogoFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+.lm-brand-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #fbbf24;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+}
+
+.lm-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 0 0 0.3rem;
+    letter-spacing: -0.5px;
+}
+
+.lm-subtitle {
+    font-size: 0.85rem;
+    color: rgba(251, 191, 36, 0.65);
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Panel switching */
+.lm-panel {
+    display: none;
+}
+
+.lm-panel.active {
+    display: block;
+    animation: lmFadeUp 0.3s ease-out;
+}
+
+@keyframes lmFadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Modal Body */
+.lm-body {
+    padding: 1.75rem 2.5rem;
+}
+
+/* Alert */
+.lm-alert {
+    border-radius: 10px;
+    padding: 0.875rem 1rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.lm-alert-error {
+    background: rgba(239, 68, 68, 0.12);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+}
+
+.lm-alert-success {
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #6ee7b7;
+}
+
+/* Input Group */
+.lm-field {
+    margin-bottom: 1.15rem;
+}
+
+.lm-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fbbf24;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 0.45rem;
+}
+
+.lm-input-wrap {
+    position: relative;
+}
+
+.lm-input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    pointer-events: none;
+    opacity: 0.75;
+    line-height: 1;
+}
+
+.lm-input {
+    width: 100%;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1.5px solid rgba(71, 85, 105, 0.4);
+    border-radius: 10px;
+    padding: 0.85rem 3rem 0.85rem 2.85rem;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    color: #f0f0f0;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.lm-input::placeholder {
+    color: #4b5563;
+    font-weight: 400;
+}
+
+.lm-input:focus {
+    border-color: #fbbf24;
+    background: rgba(25, 25, 25, 0.95);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15), 0 0 20px rgba(251, 191, 36, 0.2);
+    color: #fff;
+}
+
+.lm-eye-toggle {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0.65;
+    transition: opacity 0.2s;
+    user-select: none;
+    line-height: 1;
+}
+
+.lm-eye-toggle:hover {
+    opacity: 1;
+}
+
+/* Submit Button */
+.lm-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border: none;
+    color: #000;
+    padding: 0.95rem;
+    font-size: 0.9rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(251, 191, 36, 0.4), 0 4px 15px rgba(251, 191, 36, 0.25);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-top: 0.25rem;
+}
+
+.lm-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    transition: left 0.5s ease;
+}
+
+.lm-btn:hover::before { left: 100%; }
+
+.lm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 45px rgba(251, 191, 36, 0.7), 0 8px 25px rgba(251, 191, 36, 0.4);
+}
+
+.lm-btn:active {
+    transform: translateY(0);
+}
+
+/* Footer */
+.lm-footer {
+    padding: 1.25rem 2.5rem 1.75rem;
+    border-top: 1px solid rgba(251, 191, 36, 0.12);
+    text-align: center;
+}
+
+.lm-footer-text {
+    font-size: 0.875rem;
+    color: rgba(251, 191, 36, 0.6);
+    font-weight: 500;
+    margin: 0;
+}
+
+.lm-switch-link {
+    color: #fbbf24;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: text-shadow 0.2s ease;
+    position: relative;
+}
+
+.lm-switch-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 0; height: 1.5px;
+    background: #fbbf24;
+    transition: width 0.3s ease;
+}
+
+.lm-switch-link:hover {
+    text-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+}
+
+.lm-switch-link:hover::after { width: 100%; }
+
+.lm-info-note {
+    font-size: 0.78rem;
+    color: rgba(251, 191, 36, 0.45);
+    margin-top: 0.75rem;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* Divider */
+.lm-divider {
+    height: 1px;
+    background: rgba(251, 191, 36, 0.12);
+    margin: 1rem 0;
+}
+
+/* Responsive */
+@media (max-width: 520px) {
+    .lm-header,
+    .lm-body,
+    .lm-footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .lm-title { font-size: 1.35rem; }
+}
+
+/* ===========================
+   ERROR / VALIDATION STATES
+   =========================== */
+
+/* Shake the entire modal box on error */
+.login-modal-box.lm-shake {
+    animation: lmShake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both !important;
+}
+@keyframes lmShake {
+    0%,100% { transform: translateX(0) scale(1); }
+    15%      { transform: translateX(-8px) scale(1); }
+    30%      { transform: translateX(8px)  scale(1); }
+    45%      { transform: translateX(-6px) scale(1); }
+    60%      { transform: translateX(6px)  scale(1); }
+    75%      { transform: translateX(-3px) scale(1); }
+}
+
+/* Red border on inputs when there's a login error */
+.lm-input.lm-input-error {
+    border-color: rgba(239, 68, 68, 0.7) !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15), 0 0 15px rgba(239, 68, 68, 0.2) !important;
+    color: #fca5a5 !important;
+}
+
+.lm-input.lm-input-error:focus {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25), 0 0 20px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* Clear error state once user starts typing */
+.lm-input.lm-input-error.lm-input-typing {
+    border-color: rgba(71, 85, 105, 0.4) !important;
+    box-shadow: none !important;
+    color: #f0f0f0 !important;
+    transition: all 0.3s ease !important;
+}
+
+/* Rate-limit error — more severe, orange tint */
+.lm-alert.lm-alert-ratelimit {
+    background: rgba(245, 158, 11, 0.12) !important;
+    border: 1px solid rgba(245, 158, 11, 0.35) !important;
+    color: #fcd34d !important;
+}
+
+/* Attempt counter badge inside error */
+.lm-attempt-badge {
+    display: inline-block;
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.1rem 0.45rem;
+    border-radius: 20px;
+    margin-left: 0.35rem;
+    vertical-align: middle;
+    letter-spacing: 0.3px;
+}
