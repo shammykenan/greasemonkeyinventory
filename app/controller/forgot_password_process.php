@@ -2,7 +2,9 @@
 date_default_timezone_set('Asia/Manila'); // UTC+8
 require_once __DIR__ . '/../../config/connection.php';
 require_once __DIR__ . '/../model/logs_model.php';
-
+require __DIR__ . '/../../vendor/autoload.php'; // load composer autoload
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
 // PHPMailer includes
 require __DIR__ . '/../../src/PHPMailer.php';
 require __DIR__ . '/../../src/SMTP.php';
@@ -19,8 +21,8 @@ if (isset($_POST['email'])) {
     $email = trim($_POST['email']);
 
     // RATE LIMITER: max 3 requests per 15 mins
-    $limit = 3;
-    $window_mins = 15;
+    $limit = 100;
+    $window_mins = 0;
 
     $pdo->exec("SET time_zone = '+00:00'");
     $pdo->prepare("DELETE FROM password_resets WHERE expires_at < UTC_TIMESTAMP()")->execute();
@@ -45,7 +47,7 @@ if (isset($_POST['email'])) {
     $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-	$ADMIN_EMAIL = 'dinshammykenan012@gmail.com';
+	$ADMIN_EMAIL = $_ENV['SMTP_FROM'];
     if ($user && $email === $ADMIN_EMAIL) {
     $token = bin2hex(random_bytes(32));
     $expires = date('Y-m-d H:i:s', strtotime('+10 minutes'));
@@ -82,17 +84,17 @@ function sendResetEmail($to, $link) {
 
     try {
         $mail->isSMTP();
-        $mail->SMTPDebug = 0; // 0 = off, 2 = show errors
-        $mail->Debugoutput = 'error_log';
+        $mail->SMTPDebug = 2; // show errors temporarily
+        $mail->Debugoutput = 'echo';
 
-        $mail->Host = 'smtp-relay.brevo.com';
+        $mail->Host = $_ENV['SMTP_HOST'];
         $mail->SMTPAuth = true;
-        $mail->Username = 'a0c11f001@smtp-brevo.com';
-        $mail->Password = 'pI3PBAKdFrhjgZNT';
+        $mail->Username = $_ENV['SMTP_USER'];
+        $mail->Password = $_ENV['SMTP_PASS'];
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+        $mail->Port = $_ENV['SMTP_PORT'];;
 
-        $mail->setFrom('dinshammykenan012@gmail.com', 'Grease Monkey');
+        $mail->setFrom($_ENV['SMTP_FROM'], $_ENV['SMTP_NAME']);
         $mail->addAddress($to);
 
         $mail->isHTML(true);
@@ -104,8 +106,8 @@ function sendResetEmail($to, $link) {
         ";
 
         $mail->send();
+        echo "Email sent successfully!"; // temporary debug
     } catch (Exception $e) {
-        error_log('Mail Error: ' . $mail->ErrorInfo);
+        echo 'Mail Error: ' . $mail->ErrorInfo;
     }
 }
-//'svft xfom nwea tkhk';
