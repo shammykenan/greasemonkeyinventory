@@ -9,7 +9,7 @@ Grease Monkey is a web-based inventory system for managing Ford parts and other 
 - Import and export database backups locally or on the server
 - Track stock in and out (Stock Logs)  
 - Track user activity (Activity Logs)
-- print stock logs, activity logs, and products can be filtered by (e.g date, remarks, category) 
+- Print stock logs, activity logs, and products can be filtered by (e.g date, remarks, category) 
 - Rate limiter for login and forgot password attempts  
 - Built with clean, modular PHP code (MVC structure)
 
@@ -30,4 +30,14 @@ You can try the live system using the backup database:
 
 [Check out the live system](https://grease-monkey.ct.ws)  
 
-⚠️ This database is for testing purposes only — feel free to add, update, or delete items without affecting the real system.
+## Installation
+1. Clone the repo
+2. Login to the provided demo account and export the SQL backup.
+3. Create a database name "inventory" and import the SQL backup.
+4. Configure database in config.php
+5. Run the system on your local server (XAMPP, Laragon, etc.)
+
+## Note
+
+⚠️ This database is for testing purposes only — feel free to add, update, or delete items without affecting the real system.  
+⚠️ Note: The landing page is for advertisement purposes only and does not reflect the actual inventory system functionality.
