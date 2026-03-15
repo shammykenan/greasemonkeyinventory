@@ -38,6 +38,5 @@ You can try the live system using the backup database:
 5. Run the system on your local server (XAMPP, Laragon, etc.)
 
 ## Note
-
-⚠️ This database is for testing purposes only — feel free to add, update, or delete items without affecting the real system.  
-⚠️ Note: The landing page is for advertisement purposes only and does not reflect the actual inventory system functionality.
+⚠️ This database is for testing only; changes here do not affect any real system.  
+⚠️ The landing page is for advertisement purposes only.
