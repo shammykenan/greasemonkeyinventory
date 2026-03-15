@@ -6,7 +6,7 @@ Grease Monkey is a web-based inventory system for managing Ford parts and other 
 
 - Add, update, and remove inventory items (Each item has a unique SKU; part numbers are required depending on the category)  
 - Add, update, and delete categories (Specify if a category requires a part number)
-- Import and export database backups locally or on the server
+- Import and export database backups locally and on the server
 - Track stock in and out (Stock Logs)  
 - Track user activity (Activity Logs)
 - Print stock logs, activity logs, and products can be filtered by (e.g date, remarks, category) 
