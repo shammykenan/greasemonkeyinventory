@@ -45,7 +45,7 @@ if (isset($_POST['email'])) {
     $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-	$ADMIN_EMAIL = 'greasemonkey09876@gmail.com';
+	$ADMIN_EMAIL = 'dinshammykenan012@gmail.com';
     if ($user && $email === $ADMIN_EMAIL) {
     $token = bin2hex(random_bytes(32));
     $expires = date('Y-m-d H:i:s', strtotime('+10 minutes'));
@@ -81,23 +81,20 @@ function sendResetEmail($to, $link) {
     $mail = new PHPMailer(true);
 
     try {
-        // SMTP Settings
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPDebug = 0; // 0 = off, 2 = show errors
+        $mail->Debugoutput = 'error_log';
+
+        $mail->Host = 'smtp-relay.brevo.com';
         $mail->SMTPAuth = true;
-
-        // Gmail credentials
-        $mail->Username = 'greasemonkey09876@gmail.com'; // your Gmail
-        $mail->Password = 'bgcr bxnv sydf lwql';         // your normal Gmail password
-
+        $mail->Username = 'a0c11f001@smtp-brevo.com';
+        $mail->Password = 'pI3PBAKdFrhjgZNT';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        // Sender & Recipient
-        $mail->setFrom('greasemonkey09876@gmail.com', 'Grease Monkey');
+        $mail->setFrom('dinshammykenan012@gmail.com', 'Grease Monkey');
         $mail->addAddress($to);
 
-        // Email content
         $mail->isHTML(true);
         $mail->Subject = 'Reset Your Password';
         $mail->Body = "
@@ -106,14 +103,9 @@ function sendResetEmail($to, $link) {
             <p><small>This link expires in 10 minutes.</small></p>
         ";
 
-        // Debugging
-        $mail->SMTPDebug = 2;          // 2 = shows full SMTP conversation
-        $mail->Debugoutput = 'echo';   // prints debug messages in browser
-
         $mail->send();
-        echo "Reset email sent successfully!";
     } catch (Exception $e) {
-        echo "Mailer Error: " . $mail->ErrorInfo;
+        error_log('Mail Error: ' . $mail->ErrorInfo);
     }
 }
 //'svft xfom nwea tkhk';
